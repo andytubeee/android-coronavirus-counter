@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
                             DeathLabel.setText(deathArr[0]);
                             RecoveredLabel.setText(deathArr[1]);
                         }catch (Exception ex){
-
+                            finish();
+                            System.exit(0);
                         }
                     }
                 });
