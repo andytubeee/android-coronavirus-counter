@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:text="000000"
         android:textSize="30dp"
+        android:onClick="changeActivity"
         android:layout_gravity="center"
         android:textColor="@android:color/white"
         android:id="@+id/totalCountLabel"
@@ -84,8 +85,29 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
         android:textColor="@android:color/white"
+        android:onClick="autoUpdate"
         android:layout_gravity="center"
         android:id="@+id/AutoUpdateCheckbox"></CheckBox>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@android:color/white"
+            android:onClick="turnOnNotification"
+            android:layout_gravity="center"
+            android:id="@+id/notificationCheckBox"></CheckBox>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="10dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:textColor="@android:color/white"
+            android:id="@+id/debugLabel"
+            android:layout_marginTop="5dp"></TextView>
 
     </LinearLayout>
 

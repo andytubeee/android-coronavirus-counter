@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/angryimg">
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:onClick="takeBack"
+        android:background="@drawable/abc_vector_test"></TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In Mild Condition:"
+            android:textSize="45dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000000"
+            android:textSize="45dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:id="@+id/mildLabel"
+            android:layout_marginTop="5dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Serious or Critical:"
+            android:textSize="45dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="125dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000000"
+            android:textSize="45dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:id="@+id/seriousLabel"
+            android:layout_marginTop="5dp"></TextView>
+
+    </LinearLayout>
+
+</LinearLayout>
