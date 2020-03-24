@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/angryimg">
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:onClick="returnMainActivity"
+        android:background="@drawable/abc_vector_test"></TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coronavirus Cases:"
+            android:textSize="40dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0000"
+            android:textSize="40dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:id="@+id/coronavirusCaseLabel"
+            android:layout_marginTop="5dp"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Deaths:"
+            android:textColor="@android:color/white"
+            android:textSize="40dp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:textSize="40dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:id="@+id/deathCaseLabel"
+            android:layout_marginTop="5dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Recovered:"
+            android:textColor="@android:color/white"
+            android:textSize="40dp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:textSize="40dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:id="@+id/recoveredCaseLabel"
+            android:layout_marginTop="5dp"></TextView>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="Active Cases:"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></TextView>
+
+        <TextView
+            android:id="@+id/activeCaseLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="0000"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:text="in Mild Condition:"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></TextView>
+
+        <TextView
+            android:id="@+id/mildCaseLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="0000"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="Serious or Critical:"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></TextView>
+
+        <TextView
+            android:id="@+id/seriousCaseLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="0000"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></TextView>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:text="Closed Cases:"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"></TextView>
+
+            <TextView
+                android:id="@+id/closedCaseLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="0000"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

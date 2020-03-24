@@ -14,8 +14,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -24,6 +27,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -34,8 +40,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (isInternetWorking())
+            getWebsite();
+    }
+    public void makeToast(String text){
+        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
+    }
 
-        getWebsite();
+    public final boolean isInternetWorking()
+    {
+        ConnectivityManager connec = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // ARE WE CONNECTED TO THE NET
+        if ( connec.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTED )
+        {
+            // MESSAGE TO SCREEN FOR TESTING (IF REQ)
+            //Toast.makeText(this, connectionType + ” connected”, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if ( connec.getNetworkInfo(0).getState() == NetworkInfo.State.DISCONNECTED
+                ||  connec.getNetworkInfo(1).getState() == NetworkInfo.State.DISCONNECTED  )
+        {
+            makeToast("Device not Connected to the Internet!");
+            return false;
+        }
+
+        return false;
     }
 
     public void getWebsite(){
@@ -111,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateWebsite(View view) {
         view.startAnimation(buttonClick);
-        getWebsite();
+        if(isInternetWorking())
+            getWebsite();
     }
 
     void showNotification(String title, String message) {
@@ -172,5 +205,9 @@ public class MainActivity extends AppCompatActivity {
     public void changeActivity(View view) {
         Intent intent = new Intent(this, TotalExtended.class);
         startActivity(intent);
+    }
+
+    public void switchCanadaActivity(View view) {
+        startActivity(new Intent(this, CanadaActivity.class));
     }
 }
