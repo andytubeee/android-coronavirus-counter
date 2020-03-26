@@ -58,7 +58,8 @@ public class CanadaActivity extends AppCompatActivity {
                     Elements links = doc.select("#maincounter-wrap > div > span");
                     Elements active_death_Link = doc.select("div[class=\"number-table-main\"]");
                     Elements mildLink = doc.select("span[class=\"number-table\"]");
-                    Elements percent = doc.select("body > div:nth-child(11) > div:nth-child(2) > div.col-md-8 > div > div.row > div:nth-child(1) > div > div.panel-body > div > div.panel_front > div:nth-child(3) > div:nth-child(1) > strong");
+                    Element percent = doc.select("strong").first();
+                    Element seriousPercentHtml = doc.select("body > div:nth-child(11) > div:nth-child(2) > div.col-md-8 > div > div.row > div:nth-child(1) > div > div.panel-body > div > div.panel_front > div:nth-child(3) > div:nth-child(2) > strong").first();
 
                     totalCount.append(links.html().toString().split("\n")[0]);
                     deathCount.append(links.html().toString().split("\n")[1]);
@@ -67,8 +68,8 @@ public class CanadaActivity extends AppCompatActivity {
                     closedCount.append(active_death_Link.html().toString().split("\n")[1]);
                     mildCount.append(mildLink.html().toString().split("\n")[0]);
                     seriousCount.append(mildLink.html().toString().split("\n")[1]);
-                    mildPercent.append(percent.html());
-
+                    mildPercent.append(percent.text());
+                    seriousPercent.append(100-Integer.parseInt(mildPercent.toString()));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -81,8 +82,9 @@ public class CanadaActivity extends AppCompatActivity {
                             recoveredCaseLabel.setText(recoveredCount.toString());
                             activeCaseLabel.setText(activeCount.toString());
                             closedCaseLabel.setText(closedCount.toString());
-                            mildCaseLabel.setText(mildCount.toString()+"\n  ("+mildPercent.toString()+"%)");
-                            seriousCaseLabel.setText(seriousCount.toString());
+                            mildCaseLabel.setText(" "+mildCount.toString()+"\n("+mildPercent.toString()+"%)");
+                            seriousCaseLabel.setText("  "+seriousCount.toString()+"\n("+seriousPercent.toString()+"%)");
+
                         }catch (Exception e){
                             e.printStackTrace();
                         }
