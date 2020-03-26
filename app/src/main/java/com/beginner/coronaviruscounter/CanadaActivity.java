@@ -50,6 +50,8 @@ public class CanadaActivity extends AppCompatActivity {
             final StringBuilder closedCount = new StringBuilder();
             final StringBuilder mildPercent = new StringBuilder();
             final StringBuilder seriousPercent = new StringBuilder();
+            final StringBuilder deathPercent = new StringBuilder();
+            final StringBuilder recoveredPercent = new StringBuilder();
             @Override
             public void run() {
                 try {
@@ -60,6 +62,7 @@ public class CanadaActivity extends AppCompatActivity {
                     Elements mildLink = doc.select("span[class=\"number-table\"]");
                     Element percent = doc.select("strong").first();
                     Element seriousPercentHtml = doc.select("body > div:nth-child(11) > div:nth-child(2) > div.col-md-8 > div > div.row > div:nth-child(1) > div > div.panel-body > div > div.panel_front > div:nth-child(3) > div:nth-child(2) > strong").first();
+                    Elements deathPercentHTML = doc.select("body > div:nth-child(11) > div:nth-child(2) > div.col-md-8 > div > div.row > div:nth-child(2) > div > div.panel-body > div > div.panel_front > div:nth-child(3) > div:nth-child(2) > strong");
 
                     totalCount.append(links.html().toString().split("\n")[0]);
                     deathCount.append(links.html().toString().split("\n")[1]);
@@ -70,6 +73,10 @@ public class CanadaActivity extends AppCompatActivity {
                     seriousCount.append(mildLink.html().toString().split("\n")[1]);
                     mildPercent.append(percent.text());
                     seriousPercent.append(100-Integer.parseInt(mildPercent.toString()));
+                    Double deathNumber = Double.parseDouble(deathCount.toString());
+                    Double closedNumber = Double.parseDouble(closedCount.toString());
+                    deathPercent.append(Math.round((deathNumber/closedNumber)*100));
+                    recoveredPercent.append(100-Math.round((deathNumber/closedNumber)*100));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -78,8 +85,8 @@ public class CanadaActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             coronavirusCaseLabel.setText(totalCount.toString());
-                            deathCaseLabel.setText(deathCount.toString());
-                            recoveredCaseLabel.setText(recoveredCount.toString());
+                            deathCaseLabel.setText(deathCount.toString()+"("+deathPercent.toString()+"%)");
+                            recoveredCaseLabel.setText(recoveredCount.toString()+"("+recoveredPercent.toString()+"%)");
                             activeCaseLabel.setText(activeCount.toString());
                             closedCaseLabel.setText(closedCount.toString());
                             mildCaseLabel.setText(" "+mildCount.toString()+"\n("+mildPercent.toString()+"%)");

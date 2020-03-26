@@ -80,21 +80,29 @@ public class MainActivity extends AppCompatActivity {
                 final TextView RecoveredLabel = (TextView) findViewById(R.id.recoveredLabel);
                 final StringBuilder sb = new StringBuilder();
                 final StringBuilder deathSB = new StringBuilder();
+                final StringBuilder mildPercent = new StringBuilder();
+                final StringBuilder seriousPercent = new StringBuilder();
+                final StringBuilder deathPercentSB = new StringBuilder();
+                final StringBuilder recoveredPercent = new StringBuilder();
+                final StringBuilder closedNumberString = new StringBuilder();
+                final StringBuilder deathNumberString = new StringBuilder();
+                Double deathPercent = null;
                 try {
                     Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
                     //sb.append(doc.title()).append("\n");
                     Elements links = doc.select("span[style=\"color:#aaa\"]");
+                    Elements activeHTML = doc.select("div[class=\"number-table-main\"]");
                     Elements DeathLinks = doc.select("#maincounter-wrap > div > span");
 
                     sb.append(links.html().toString());
                     deathSB.append(DeathLinks.html().toString());
-                    /*for (Element link : links){
-                        sb.append(link.attr("span"));
-                    }*/
-
+                    closedNumberString.append(activeHTML.html().split("\n")[1]);
+                    Double deathNumber = Double.parseDouble(deathSB.toString().split("\n")[1].replaceAll("(\\d+),.*", "$1"));
+                    Double closedNumber = Double.parseDouble(closedNumberString.toString().replaceAll("(\\d+),.*", "$1"));
+                    deathPercent = (deathNumber/closedNumber)*100;
+                    deathPercentSB.append(deathPercent.toString());
                 }catch (Exception e){
                     e.printStackTrace();
-                    sb.append("Error: "+e.getMessage()).append("\n");
                 }
 
                 runOnUiThread(new Runnable() {
@@ -109,31 +117,44 @@ public class MainActivity extends AppCompatActivity {
                                 totalCaseLabel.setText(sb.toString());
                             }
 
-                            String allValues = deathSB.toString();
-                            String[] arrOfStr = allValues.split("\n", 2);
+                            String[] allValues = deathSB.toString().split("\n");
+                            /*String[] arrOfStr = allValues.split("\n", 2);
                             String[] deathArr = null;
                             for (String a : arrOfStr)
                                 //DeathLabel.setText(a);
                                 deathArr = a.split("\n");
                                 if (!DeathLabel.getText().toString().equals(deathArr[0])){
                                     numberChange = true;
-                                    DeathLabel.setText(deathArr[0]);
+                                    DeathLabel.setText(deathArr[0]+"("+deathPercent.toString()+"%)");
                                 }
                                 if (!RecoveredLabel.getText().toString().equals(deathArr[1])){
                                     numberChange = true;
                                     RecoveredLabel.setText(deathArr[1]);
-                                }
-                                CheckBox cbNotification = (CheckBox) findViewById(R.id.notificationCheckBox);
-                                if(numberChange&&cbNotification.isChecked()){
-                                    showNotification("Update Notice","Updated!");
-                                }
+                                }*/
+
+
+                            if (!DeathLabel.getText().toString().equals(allValues[1])){
+                                numberChange = true;
+                                DeathLabel.setText(allValues[1]+" ("+Math.round(Double.parseDouble(deathPercentSB.toString()))+"%)");
+                                //"("+Math.round((Double.parseDouble(allValues[1])/Double.parseDouble(closedNumberString.toString()))*100)+"%)"
+                            }
+
+                            if (!RecoveredLabel.getText().toString().equals(allValues[2])){
+                                numberChange = true;
+                                RecoveredLabel.setText(allValues[2] + " (" +(100-Math.round(Double.parseDouble(deathPercentSB.toString())))+"%)");
+                            }
+                            CheckBox cbNotification = (CheckBox) findViewById(R.id.notificationCheckBox);
+                            if(numberChange&&cbNotification.isChecked()){
+                                showNotification("Update Notice","Updated!");
+                            }
+
+
+
                             Integer tempInt = Integer.parseInt(debugLbl.getText().toString());
                             debugLbl.setText((tempInt+=1).toString());
-
-
                         }catch (Exception ex){
-                            finish();
-                            System.exit(0);
+                            sb.append("Error: "+ex.getMessage()).append("\n");
+                            ex.printStackTrace();
                         }
                     }
                 });
