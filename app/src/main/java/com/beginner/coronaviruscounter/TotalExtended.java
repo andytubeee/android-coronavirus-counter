@@ -25,14 +25,14 @@ public class TotalExtended extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final TextView activeCaseLabel = (TextView) findViewById(R.id.activeCaseLabel);
-                final TextView closedCaseLabel = (TextView) findViewById(R.id.closedCaseLabel);
+                final TextView activeCaseLabel = findViewById(R.id.activeCaseLabel);
+                final TextView closedCaseLabel = findViewById(R.id.closedCaseLabel);
                 final StringBuilder activeCaseCount = new StringBuilder();
 
                 try {
                     Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
                     Elements activeHTML = doc.select("div[class=\"number-table-main\"]");
-                    activeCaseCount.append(activeHTML.html().toString());
+                    activeCaseCount.append(activeHTML.html());
                 }catch (Exception e){
                     e.printStackTrace();
                 }

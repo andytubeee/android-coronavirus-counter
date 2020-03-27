@@ -22,6 +22,8 @@ package="com.beginner.coronaviruscounter">
     <activity android:name=".TotalExtended"></activity>
     <activity android:name=".CanadaActivity"></activity>
     <activity android:name=".ActiveExtended"></activity>
+    <activity android:name=".AnyCountryActivity"></activity>
+    <activity android:name=".ProtectionActivity"></activity>
     </application>
 
     </manifest>

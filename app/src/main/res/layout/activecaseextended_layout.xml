@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/angryimg">
+    android:background="@android:color/black">
 
     <TextView
         android:layout_width="50dp"
@@ -20,6 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasneue_regular"
             android:text="In Mild Condition:"
             android:textSize="45dp"
             android:layout_gravity="center"
@@ -28,6 +29,7 @@
             android:layout_marginTop="30dp"></TextView>
         <TextView
             android:layout_width="wrap_content"
+            android:fontFamily="@font/bebasneue_regular"
             android:layout_height="wrap_content"
             android:text="000000"
             android:textSize="45dp"
@@ -39,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Serious or Critical:"
+            android:fontFamily="@font/bebasneue_regular"
             android:textSize="45dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
@@ -47,6 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasneue_regular"
             android:text="000000"
             android:textSize="45dp"
             android:layout_gravity="center"

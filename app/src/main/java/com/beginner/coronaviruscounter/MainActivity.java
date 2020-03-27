@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.webkit.WebView;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final TextView totalCaseLabel = (TextView) findViewById(R.id.totalCountLabel);
-                final TextView DeathLabel = (TextView) findViewById(R.id.deathsLabel);
-                final CheckBox cbNotification = (CheckBox) findViewById(R.id.notificationCheckBox);
-                final TextView RecoveredLabel = (TextView) findViewById(R.id.recoveredLabel);
+                final TextView totalCaseLabel = findViewById(R.id.totalCountLabel);
+                final TextView DeathLabel = findViewById(R.id.deathsLabel);
+                final CheckBox cbNotification = findViewById(R.id.notificationCheckBox);
+                final TextView RecoveredLabel = findViewById(R.id.recoveredLabel);
                 final StringBuilder sb = new StringBuilder();
                 final StringBuilder deathSB = new StringBuilder();
                 final StringBuilder mildPercent = new StringBuilder();
@@ -94,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     Elements activeHTML = doc.select("div[class=\"number-table-main\"]");
                     Elements DeathLinks = doc.select("#maincounter-wrap > div > span");
 
-                    sb.append(links.html().toString());
-                    deathSB.append(DeathLinks.html().toString());
+                    sb.append(links.html());
+                    deathSB.append(DeathLinks.html());
                     closedNumberString.append(activeHTML.html().split("\n")[1]);
                     Double deathNumber = Double.parseDouble(deathSB.toString().split("\n")[1].replaceAll("(\\d+),.*", "$1"));
                     Double closedNumber = Double.parseDouble(closedNumberString.toString().replaceAll("(\\d+),.*", "$1"));
@@ -109,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
-                            final TextView debugLbl = (TextView) findViewById(R.id.debugLabel);
                             Boolean numberChange = false;
 
                             if(!totalCaseLabel.getText().toString().equals(sb.toString())) {
@@ -133,25 +133,20 @@ public class MainActivity extends AppCompatActivity {
                                 }*/
 
 
-                            if (!DeathLabel.getText().toString().equals(allValues[1])){
+                            if (!DeathLabel.getText().toString().equals(allValues[1]+" ("+Math.round(Double.parseDouble(deathPercentSB.toString()))+"%)")){
                                 numberChange = true;
                                 DeathLabel.setText(allValues[1]+" ("+Math.round(Double.parseDouble(deathPercentSB.toString()))+"%)");
                                 //"("+Math.round((Double.parseDouble(allValues[1])/Double.parseDouble(closedNumberString.toString()))*100)+"%)"
                             }
 
-                            if (!RecoveredLabel.getText().toString().equals(allValues[2])){
+                            if (!RecoveredLabel.getText().toString().equals(allValues[2] + " (" +(100-Math.round(Double.parseDouble(deathPercentSB.toString())))+"%)")){
                                 numberChange = true;
                                 RecoveredLabel.setText(allValues[2] + " (" +(100-Math.round(Double.parseDouble(deathPercentSB.toString())))+"%)");
                             }
-                            CheckBox cbNotification = (CheckBox) findViewById(R.id.notificationCheckBox);
+                            CheckBox cbNotification = findViewById(R.id.notificationCheckBox);
                             if(numberChange&&cbNotification.isChecked()){
                                 showNotification("Update Notice","Updated!");
                             }
-
-
-
-                            Integer tempInt = Integer.parseInt(debugLbl.getText().toString());
-                            debugLbl.setText((tempInt+=1).toString());
                         }catch (Exception ex){
                             sb.append("Error: "+ex.getMessage()).append("\n");
                             ex.printStackTrace();
@@ -192,16 +187,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void turnOnNotification(View view) {
-        final TextView totalCaseLabel = (TextView) findViewById(R.id.totalCountLabel);
-        final TextView DeathLabel = (TextView) findViewById(R.id.deathsLabel);
-        final CheckBox cbNotification = (CheckBox) findViewById(R.id.notificationCheckBox);
-        final TextView RecoveredLabel = (TextView) findViewById(R.id.recoveredLabel);
+        final TextView totalCaseLabel = findViewById(R.id.totalCountLabel);
+        final TextView DeathLabel = findViewById(R.id.deathsLabel);
+        final CheckBox cbNotification = findViewById(R.id.notificationCheckBox);
+        final TextView RecoveredLabel = findViewById(R.id.recoveredLabel);
             //if (cbNotification.isChecked()){
                 //showNotification("Coronavirus Count","Total Count: "+totalCaseLabel.getText().toString()+"\nDeaths: "+DeathLabel.getText().toString()+"\nRecovered: "+RecoveredLabel.getText().toString());
         }
 
     public void autoUpdate(View view) {
-        CheckBox autoUpdateCB = (CheckBox) findViewById(R.id.AutoUpdateCheckbox);
+        CheckBox autoUpdateCB = findViewById(R.id.AutoUpdateCheckbox);
         if (autoUpdateCB.isChecked()){
             Thread thread = new Thread("Auto Update") {
                 public void run() {
@@ -230,5 +225,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void switchCanadaActivity(View view) {
         startActivity(new Intent(this, CanadaActivity.class));
+    }
+
+    public void updateAnyCountry(View view) {
+        EditText countryNameText = (EditText)findViewById(R.id.txtAnyCountry);
+        view.startAnimation(buttonClick);
+
+        if(countryNameText.getText().toString().matches("")) {
+            makeToast("Please input Country Name!");
+        }else {
+            try{
+                startActivity(new Intent(this, AnyCountryActivity.class).putExtra("theCountryName", countryNameText.getText().toString()));
+            }catch (Exception e){
+                e.printStackTrace();
+                //makeToast(e.toString());
+            }
+        }
+    }
+
+    public void startProtectionActivity(View view) {
+        startActivity(new Intent(this, ProtectionActivity.class));
     }
 }

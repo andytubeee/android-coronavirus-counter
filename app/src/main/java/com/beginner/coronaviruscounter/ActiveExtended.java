@@ -22,8 +22,8 @@ public class ActiveExtended extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final TextView mildLabel = (TextView) findViewById(R.id.mildLabel);
-                final TextView seriousLabel = (TextView) findViewById(R.id.seriousLabel);
+                final TextView mildLabel = findViewById(R.id.mildLabel);
+                final TextView seriousLabel = findViewById(R.id.seriousLabel);
                 final StringBuilder activeExtendedCaseCount = new StringBuilder();
                 final StringBuilder percent = new StringBuilder();
                 final StringBuilder percentS = new StringBuilder();
@@ -32,9 +32,9 @@ public class ActiveExtended extends AppCompatActivity {
                     Elements activeExtendedHTML = doc.select("span[class=\"number-table\"]");
                     Elements percentHTML = doc.select("body > div.container > div:nth-child(2) > div.col-md-8 > div > div:nth-child(14) > div > div.panel-body > div > div.panel_front > div:nth-child(3) > div:nth-child(1) > strong");
                     Elements percentSHTML = doc.select("body > div.container > div:nth-child(2) > div.col-md-8 > div > div:nth-child(14) > div > div.panel-body > div > div.panel_front > div:nth-child(3) > div:nth-child(2) > strong");
-                    activeExtendedCaseCount.append(activeExtendedHTML.html().toString());
-                    percent.append(percentHTML.html().toString());
-                    percentS.append(percentSHTML.html().toString());
+                    activeExtendedCaseCount.append(activeExtendedHTML.html());
+                    percent.append(percentHTML.html());
+                    percentS.append(percentSHTML.html());
                 }catch (Exception e){
                     e.printStackTrace();
                 }

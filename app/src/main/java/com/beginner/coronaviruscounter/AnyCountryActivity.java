@@ -8,31 +8,29 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-
-public class CanadaActivity extends AppCompatActivity {
+public class AnyCountryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.canada_layout);
+        setContentView(R.layout.anycountry_layoutt);
 
         if(isInternetWorking())
             getWebsite();
     }
-
+    String countryName = "";
     private void getWebsite() {
         new Thread(new Runnable() {
             final TextView coronavirusCaseLabel = findViewById(R.id.coronavirusCaseLabel);
@@ -53,10 +51,32 @@ public class CanadaActivity extends AppCompatActivity {
             final StringBuilder seriousPercent = new StringBuilder();
             final StringBuilder deathPercent = new StringBuilder();
             final StringBuilder recoveredPercent = new StringBuilder();
+            Intent previousIntentMain = getIntent();
             @Override
             public void run() {
                 try {
-                    Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus/country/canada/").get();
+                    //String countryName = "";
+                    switch (previousIntentMain.getStringExtra("theCountryName")){
+                        case "America":
+                            countryName = "us";
+                            break;
+                        case "usa":
+                            countryName = "us";
+                            break;
+                        case "United States":
+                            countryName = "us";
+                            break;
+                        case "south korea":
+                            countryName = "south-korea";
+                            break;
+                        case "sk":
+                            countryName = "south-korea";
+                            break;
+                        default:
+                            countryName = previousIntentMain.getStringExtra("theCountryName");
+                    }
+
+                    Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus/country/"+countryName+"/").get();
                     //sb.append(doc.title()).append("\n");
                     Elements links = doc.select("#maincounter-wrap > div > span");
                     Elements active_death_Link = doc.select("div[class=\"number-table-main\"]");
@@ -74,10 +94,17 @@ public class CanadaActivity extends AppCompatActivity {
                     seriousCount.append(mildLink.html().split("\n")[1]);
                     mildPercent.append(percent.text());
                     seriousPercent.append(100-Integer.parseInt(mildPercent.toString()));
-                    Double deathNumber = Double.parseDouble(deathCount.toString());
-                    Double closedNumber = Double.parseDouble(closedCount.toString());
+                    Double deathNumber = Double.parseDouble(deathCount.toString().replace(",",""));
+                    Double closedNumber = Double.parseDouble(closedCount.toString().replace(",",""));
                     deathPercent.append(Math.round((deathNumber/closedNumber)*100));
                     recoveredPercent.append(100-Math.round((deathNumber/closedNumber)*100));
+
+                    if(activeCaseLabel.getText().toString().matches("")){
+                        Double totalNumber = Double.parseDouble(links.html().split("\n")[0].replaceAll("(\\d+),.*", "$1"));
+                        Double dNum = Double.parseDouble(links.html().split("\n")[1].replaceAll("(\\d+),.*", "$1"));
+                        Double rNum = Double.parseDouble(links.html().split("\n")[2].replaceAll("(\\d+),.*", "$1"));
+                        activeCaseLabel.setText(Double.toString(totalNumber-(dNum+rNum)));
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -90,8 +117,34 @@ public class CanadaActivity extends AppCompatActivity {
                             recoveredCaseLabel.setText(recoveredCount.toString()+" ("+recoveredPercent.toString()+"%)");
                             activeCaseLabel.setText(activeCount.toString());
                             closedCaseLabel.setText(closedCount.toString());
-                            mildCaseLabel.setText(" "+mildCount.toString()+"\n ("+mildPercent.toString()+"%)");
-                            seriousCaseLabel.setText("  "+seriousCount.toString()+"\n ("+seriousPercent.toString()+"%)");
+                            mildCaseLabel.setText(" "+mildCount.toString()+"\n("+mildPercent.toString()+"%)");
+                            seriousCaseLabel.setText("  "+seriousCount.toString()+"\n("+seriousPercent.toString()+"%)");
+
+                            if(activeCaseLabel.getText().toString().matches("")){
+                                Integer totalNumber = Integer.parseInt(totalCount.toString().replace(",",""));
+                                Double dNum = Double.parseDouble(deathCount.toString().replace(",",""));
+                                Double rNum = Double.parseDouble(recoveredCount.toString().replace(",",""));
+                                activeCaseLabel.setText(Double.toString(totalNumber-(dNum+rNum)).replace(".0",""));
+
+                                mildCaseLabel.setText("Unknown");
+                                seriousCaseLabel.setText("Unknown");
+                            }
+                            if(closedCaseLabel.getText().toString().matches("")){
+                                Double dNum = Double.parseDouble(deathCount.toString().replace(",",""));
+                                Double rNum = Double.parseDouble(recoveredCount.toString().replace(",",""));
+                                closedCaseLabel.setText(Double.toString(dNum+rNum).replace(".0",""));
+                            }
+                            if(countryName=="south-korea"){
+                                Integer skDeathPercent = Math.round((Integer.parseInt(deathCount.toString().replace(",","")) / Integer.parseInt(closedCount.toString().replace(",","")))*100);
+                                deathCaseLabel.setText(deathCount.toString()+" ("+(100-Integer.parseInt(recoveredPercent.toString()))+"%)");
+                                recoveredCaseLabel.setText(recoveredCount.toString()+" ("+recoveredPercent.toString()+"%)");
+                            }
+                            if(countryName.equals("us")){
+                                Integer USclosedCount = Integer.parseInt(deathCount.toString().replace(",",""))+Integer.parseInt(recoveredCount.toString().replace(",",""));
+                                Double USdeathPercent = (Double.parseDouble(deathCount.toString().replace(",",""))/USclosedCount)*100;
+                                deathCaseLabel.setText(deathCount.toString()+" ("+String.valueOf(Math.round(USdeathPercent))+"%)");
+                                recoveredCaseLabel.setText(recoveredCount.toString()+" ("+(100-Math.round(USdeathPercent))+"%)");
+                            }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -154,7 +207,8 @@ public class CanadaActivity extends AppCompatActivity {
     public void returnMainActivity(View view) {
         startActivity(new Intent(this, MainActivity.class));
     }
-    public void updateCanadaWebsite(View view) {
+
+    public void updateWebsite(View view) {
         AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
         view.startAnimation(buttonClick);
         if(isInternetWorking())
