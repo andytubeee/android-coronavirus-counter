@@ -15,7 +15,12 @@
         android:layout_marginRight="4dp"
         android:background="@drawable/ic_warning_black_24dp"
         android:layout_gravity="right"></Button>
-
+    <Button
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:background="@drawable/ic_timer_black_24dp"
+        android:layout_marginTop="-60dp"
+        android:onClick="ExceriseTimerActivity"></Button>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

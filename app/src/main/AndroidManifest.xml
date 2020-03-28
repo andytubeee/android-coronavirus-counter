@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.beginner.coronaviruscounter">
+package="com.beginner.coronaviruscounter" android:installLocation="preferExternal">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,6 +23,7 @@ package="com.beginner.coronaviruscounter">
     <activity android:name=".TotalExtended"></activity>
     <activity android:name=".CanadaActivity"></activity>
     <activity android:name=".ActiveExtended"></activity>
+    <activity android:name=".ExeriseTimerActivity"></activity>
     <activity android:name=".AnyCountryActivity"></activity>
     <activity android:name=".ProtectionActivity"></activity>
     </application>

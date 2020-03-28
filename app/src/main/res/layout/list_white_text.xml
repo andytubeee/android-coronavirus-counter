@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Definig a container for you List Item-->
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/list_content"
+    android:textColor="#FFFFFF"
+    android:gravity="center"
+    android:text="sample"
+    android:textSize="25dp"
+    android:layout_margin="4dip"
+    android:fontFamily="@font/bebasneue_regular">
+</TextView>

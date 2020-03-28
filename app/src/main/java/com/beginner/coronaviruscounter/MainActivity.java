@@ -246,4 +246,10 @@ public class MainActivity extends AppCompatActivity {
     public void startProtectionActivity(View view) {
         startActivity(new Intent(this, ProtectionActivity.class));
     }
+
+    public void ExceriseTimerActivity(View view) {
+        AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+        view.startAnimation(buttonClick);
+        startActivity(new Intent(this, ExeriseTimerActivity.class));
+    }
 }
