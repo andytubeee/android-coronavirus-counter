@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:backgroundTint="@android:color/black"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExeriseTimerActivity"
@@ -18,76 +18,110 @@
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:textColor="@android:color/holo_red_dark"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_gravity="center"/>
     <TextView
-        android:text="00:00:00"
-        android:fontFamily="@font/bebasneue_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/bebasneue_regular"
         android:id="@+id/pointsText"
-        android:textSize="60dp"
+        android:onClick="popNoti"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
+        android:text="Points: 0"
         android:textColor="@android:color/holo_red_dark"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center"
+        android:textSize="30dp"></TextView>
 
-    <Button
-        android:text="Start"
-        android:textSize="20dp"
-        android:fontFamily="@font/bebasneue_regular"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="41dp"
-        android:id="@+id/button" />
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:text="Pause"
-        android:textSize="20dp"
-        android:fontFamily="@font/bebasneue_regular"
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasneue_regular"
+            android:text="Start"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/bebasneue_regular"
+            android:text="Pause"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasneue_regular"
+            android:text="Reset"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_alignBaseline="@+id/button"
-        android:layout_alignBottom="@+id/button"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
 
-    <Button
-        android:text="Reset"
-        android:fontFamily="@font/bebasneue_regular"
+        <Button
+            android:text="Save Lap"
+            android:fontFamily="@font/bebasneue_regular"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/button4"
+
+            android:onClick="saveLap"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:fontFamily="@font/bebasneue_regular"
+            android:textSize="20dp"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:id="@+id/trackingLog"
+            android:textColor="#FFFFFF"
+            ></TextView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button2"
-        android:textSize="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button3" />
+        android:layout_marginTop="300dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:text="Save Lap"
-        android:fontFamily="@font/bebasneue_regular"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textSize="20dp"
-        android:id="@+id/button4"
-        android:layout_below="@+id/button"
-        android:onClick="saveLap"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:id="@+id/buttonRedeem"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bebasneue_regular"
+            android:onClick="redeemPoints"
+            android:text="Redeem"
+            android:textSize="20dp"></Button>
+        <Button
+            android:id="@+id/buttonGiftCard"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bebasneue_regular"
+            android:onClick="startGiftCardActivity"
+            android:text="Gift Card"
+            android:textSize="20dp"></Button>
+    </LinearLayout>
 
-    <ListView
-        android:id="@+id/listview1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="@android:color/white"
-        android:fontFamily="@font/bebasneue_regular"
-        android:outlineAmbientShadowColor="@android:color/white"
-        android:outlineSpotShadowColor="@android:color/white"
-        android:textSize="20dp"/>
-
-</RelativeLayout>
+</LinearLayout>
