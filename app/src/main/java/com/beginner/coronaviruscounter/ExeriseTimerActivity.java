@@ -293,6 +293,6 @@ public class ExeriseTimerActivity extends AppCompatActivity{
     }
 
     public void startGiftCardActivity(View view) {
-
+        Toast.makeText(this,"Redeem Points for Gift Card, Motivates Users to Stay Active at Home",Toast.LENGTH_SHORT).show();
     }
 }
