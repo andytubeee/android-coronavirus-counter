@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="Coronavirus Cases:"
             android:fontFamily="@font/bebasneue_regular"
-            android:textSize="40dp"
+            android:textSize="25dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:fontFamily="@font/bebasneue_regular"
             android:layout_height="wrap_content"
             android:text="0000"
-            android:textSize="40dp"
+            android:textSize="25dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:id="@+id/coronavirusCaseLabel"
@@ -42,11 +42,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/bebasneue_regular"
             android:text="Deaths:"
             android:textColor="@android:color/white"
-            android:textSize="40dp"
+            android:textSize="25dp"
             android:textStyle="bold"></TextView>
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00"
-            android:textSize="40dp"
+            android:textSize="25dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:id="@+id/deathCaseLabel"
@@ -66,7 +66,7 @@
             android:layout_marginTop="10dp"
             android:text="Recovered:"
             android:textColor="@android:color/white"
-            android:textSize="40dp"
+            android:textSize="25dp"
             android:textStyle="bold"></TextView>
 
         <TextView
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="000"
-            android:textSize="40dp"
+            android:textSize="25dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:id="@+id/recoveredCaseLabel"
@@ -192,7 +192,6 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp"
         android:onClick="updateWebsite"
         android:layout_gravity="center"
         android:src="@drawable/ic_refresh_black_24dp"

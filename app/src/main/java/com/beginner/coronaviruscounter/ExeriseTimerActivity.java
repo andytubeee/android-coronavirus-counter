@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -234,9 +235,8 @@ public class ExeriseTimerActivity extends AppCompatActivity{
         trackingLog.setText(exerciseLogText.replace(",","\n").replace("[",""));
         if(pointsText!=null){
             pointsTextView.setText(pointsText);
-        }
-        else {
-            pointsTextView.setText("Points: 0");
+        }else{
+            pointsTextView.setText("Points 0");
         }
     }
 
@@ -294,5 +294,7 @@ public class ExeriseTimerActivity extends AppCompatActivity{
 
     public void startGiftCardActivity(View view) {
         Toast.makeText(this,"Redeem Points for Gift Card, Motivates Users to Stay Active at Home",Toast.LENGTH_SHORT).show();
+        ImageButton giftcard = (ImageButton)findViewById(R.id.imgGiftCard);
+        giftcard.setVisibility(View.VISIBLE);
     }
 }
