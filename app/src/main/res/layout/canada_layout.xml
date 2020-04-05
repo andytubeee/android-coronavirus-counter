@@ -5,8 +5,8 @@
     android:background="@android:color/black">
 
     <TextView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:onClick="returnMainActivity"
         android:background="@drawable/abc_vector_test"></TextView>
 
@@ -15,14 +15,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginTop="-30dp">
+        android:layout_marginTop="-24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Coronavirus Cases:"
             android:fontFamily="@font/bebasneue_regular"
-            android:textSize="40dp"
+            android:textSize="45dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0000"
-            android:textSize="40dp"
+            android:textSize="45dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:id="@+id/coronavirusCaseLabel"
@@ -43,10 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="Deaths:"
             android:textColor="@android:color/white"
-            android:textSize="40dp"
+            android:textSize="45dp"
             android:textStyle="bold"></TextView>
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00"
-            android:textSize="40dp"
+            android:textSize="45dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:id="@+id/deathCaseLabel"
@@ -64,10 +64,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="Recovered:"
             android:textColor="@android:color/white"
-            android:textSize="40dp"
+            android:textSize="45dp"
             android:textStyle="bold"></TextView>
 
         <TextView
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="000"
-            android:textSize="40dp"
+            android:textSize="45dp"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:id="@+id/recoveredCaseLabel"
@@ -100,11 +100,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
             android:text="Active Cases:"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:textSize="20dp"></TextView>
+            android:textSize="24dp"></TextView>
 
         <TextView
             android:fontFamily="@font/bebasneue_regular"
@@ -112,20 +111,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
             android:text="0000"
             android:textColor="@android:color/white"
-            android:textSize="20dp"></TextView>
+            android:textSize="24dp"></TextView>
         <TextView
             android:fontFamily="@font/bebasneue_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
             android:textStyle="bold"
             android:text="in Mild Condition:"
             android:textColor="@android:color/white"
-            android:textSize="20dp"></TextView>
+            android:textSize="24dp"></TextView>
 
         <TextView
             android:fontFamily="@font/bebasneue_regular"
@@ -133,21 +130,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
             android:text="0000"
             android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
 
         <TextView
             android:fontFamily="@font/bebasneue_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
             android:text="Serious or Critical:"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
 
         <TextView
             android:fontFamily="@font/bebasneue_regular"
@@ -155,17 +150,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
             android:text="0000"
             android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
     </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="45dp"
             android:orientation="vertical">
 
             <TextView
@@ -173,11 +167,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
                 android:textStyle="bold"
                 android:text="Closed Cases:"
                 android:textColor="@android:color/white"
-                android:textSize="20dp" />
+                android:textSize="24dp" />
 
             <TextView
                 android:fontFamily="@font/bebasneue_regular"
@@ -185,17 +178,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
                 android:text="0000"
                 android:textColor="@android:color/white"
-                android:textSize="20dp" />
+                android:textSize="24dp" />
         </LinearLayout>
     </LinearLayout>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp"
+        android:layout_marginTop="3dp"
         android:onClick="updateCanadaWebsite"
         android:layout_gravity="center"
         android:src="@drawable/ic_refresh_black_24dp"

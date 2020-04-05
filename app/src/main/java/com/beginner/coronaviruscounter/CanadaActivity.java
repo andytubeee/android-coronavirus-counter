@@ -74,8 +74,8 @@ public class CanadaActivity extends AppCompatActivity {
                     seriousCount.append(mildLink.html().split("\n")[1]);
                     mildPercent.append(percent.text());
                     seriousPercent.append(100-Integer.parseInt(mildPercent.toString()));
-                    Double deathNumber = Double.parseDouble(deathCount.toString());
-                    Double closedNumber = Double.parseDouble(closedCount.toString());
+                    Double deathNumber = Double.parseDouble(deathCount.toString().replace(",",""));
+                    Double closedNumber = Double.parseDouble(closedCount.toString().replace(",",""));
                     deathPercent.append(Math.round((deathNumber/closedNumber)*100));
                     recoveredPercent.append(100-Math.round((deathNumber/closedNumber)*100));
                 }catch (Exception e){

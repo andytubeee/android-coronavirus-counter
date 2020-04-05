@@ -21,6 +21,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class AnyCountryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -116,6 +119,7 @@ public class AnyCountryActivity extends AppCompatActivity {
                             deathCaseLabel.setText(deathCount.toString()+" ("+deathPercent.toString()+"%)");
                             recoveredCaseLabel.setText(recoveredCount.toString()+" ("+recoveredPercent.toString()+"%)");
                             activeCaseLabel.setText(activeCount.toString());
+                            //NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(activeCount.toString())))
                             closedCaseLabel.setText(closedCount.toString());
                             mildCaseLabel.setText(" "+mildCount.toString()+"\n("+mildPercent.toString()+"%)");
                             seriousCaseLabel.setText("  "+seriousCount.toString()+"\n("+seriousPercent.toString()+"%)");
@@ -124,7 +128,7 @@ public class AnyCountryActivity extends AppCompatActivity {
                                 Integer totalNumber = Integer.parseInt(totalCount.toString().replace(",",""));
                                 Double dNum = Double.parseDouble(deathCount.toString().replace(",",""));
                                 Double rNum = Double.parseDouble(recoveredCount.toString().replace(",",""));
-                                activeCaseLabel.setText(Double.toString(totalNumber-(dNum+rNum)).replace(".0",""));
+                                activeCaseLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(totalNumber-(dNum+rNum)));
 
                                 mildCaseLabel.setText("Unknown");
                                 seriousCaseLabel.setText("Unknown");
@@ -132,7 +136,7 @@ public class AnyCountryActivity extends AppCompatActivity {
                             if(closedCaseLabel.getText().toString().matches("")){
                                 Double dNum = Double.parseDouble(deathCount.toString().replace(",",""));
                                 Double rNum = Double.parseDouble(recoveredCount.toString().replace(",",""));
-                                closedCaseLabel.setText(Double.toString(dNum+rNum).replace(".0",""));
+                                closedCaseLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(dNum+rNum));
                             }
                             if(countryName=="south-korea"){
                                 Integer skDeathPercent = Math.round((Integer.parseInt(deathCount.toString().replace(",","")) / Integer.parseInt(closedCount.toString().replace(",","")))*100);
@@ -142,8 +146,9 @@ public class AnyCountryActivity extends AppCompatActivity {
                             if(countryName.equals("us")){
                                 Integer USclosedCount = Integer.parseInt(deathCount.toString().replace(",",""))+Integer.parseInt(recoveredCount.toString().replace(",",""));
                                 Double USdeathPercent = (Double.parseDouble(deathCount.toString().replace(",",""))/USclosedCount)*100;
-                                deathCaseLabel.setText(deathCount.toString()+" ("+String.valueOf(Math.round(USdeathPercent))+"%)");
+                                deathCaseLabel.setText(deathCount.toString()+" ("+Math.round(USdeathPercent)+"%)");
                                 recoveredCaseLabel.setText(recoveredCount.toString()+" ("+(100-Math.round(USdeathPercent))+"%)");
+                                //activeCaseLabel.setText(String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(activeCount.toString()))));
                             }
                         }catch (Exception e){
                             e.printStackTrace();
