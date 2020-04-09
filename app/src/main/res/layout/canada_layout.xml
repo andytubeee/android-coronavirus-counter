@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black">
@@ -85,7 +86,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -120,13 +121,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textStyle="bold"
-            android:text="in Mild Condition:"
+            android:text="Closed Cases:"
+            android:layout_marginTop="20dp"
             android:textColor="@android:color/white"
-            android:textSize="24dp"></TextView>
+            android:textSize="24dp" />
 
         <TextView
             android:fontFamily="@font/bebasneue_regular"
-            android:id="@+id/mildCaseLabel"
+            android:id="@+id/closedCaseLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -134,25 +136,6 @@
             android:textColor="@android:color/white"
             android:textSize="24dp" />
 
-        <TextView
-            android:fontFamily="@font/bebasneue_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Serious or Critical:"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:textSize="24dp" />
-
-        <TextView
-            android:fontFamily="@font/bebasneue_regular"
-            android:id="@+id/seriousCaseLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="0000"
-            android:textColor="@android:color/white"
-            android:textSize="24dp" />
     </LinearLayout>
 
         <LinearLayout
@@ -167,20 +150,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:text="Closed Cases:"
+                android:text="New Cases Today: "
                 android:textColor="@android:color/white"
                 android:textSize="24dp" />
-
             <TextView
                 android:fontFamily="@font/bebasneue_regular"
-                android:id="@+id/closedCaseLabel"
+                android:id="@+id/newCaseLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="0000"
                 android:textColor="@android:color/white"
-                android:textSize="24dp" />
+                android:textSize="24dp"
+                tools:ignore="InvalidId" />
+
         </LinearLayout>
     </LinearLayout>
 
@@ -192,4 +175,25 @@
         android:layout_gravity="center"
         android:src="@drawable/ic_refresh_black_24dp"
         android:background="@android:color/transparent" />
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#FF0000"
+        android:fontFamily="@font/bebasneue_regular"
+        android:onClick="launchProvinceDetail"
+        android:text="Provinces Detail"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:textSize="22dp"></Button>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Updated"
+        android:fontFamily="@font/bebasneue_regular"
+        android:textSize="15dp"
+        android:id="@+id/lastUpdatedLabel"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"></TextView>
 </LinearLayout>

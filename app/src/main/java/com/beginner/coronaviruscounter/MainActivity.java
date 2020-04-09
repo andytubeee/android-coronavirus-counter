@@ -9,6 +9,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -29,14 +32,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+
+    public MainActivity() throws ParseException {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
-
+    Elements LastUpdLink;
     public void getWebsite(){
         new Thread(new Runnable() {
             @Override
@@ -79,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 final TextView DeathLabel = findViewById(R.id.deathsLabel);
                 final CheckBox cbNotification = findViewById(R.id.notificationCheckBox);
                 final TextView RecoveredLabel = findViewById(R.id.recoveredLabel);
+                final TextView LastUpdatedLabel = findViewById(R.id.lastUpdatedLabel);
                 final StringBuilder sb = new StringBuilder();
                 final StringBuilder deathSB = new StringBuilder();
                 final StringBuilder mildPercent = new StringBuilder();
@@ -87,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 final StringBuilder recoveredPercent = new StringBuilder();
                 final StringBuilder closedNumberString = new StringBuilder();
                 final StringBuilder deathNumberString = new StringBuilder();
+
+
                 Double deathPercent = null;
                 try {
                     Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
@@ -94,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     Elements links = doc.select("span[style=\"color:#aaa\"]");
                     Elements activeHTML = doc.select("div[class=\"number-table-main\"]");
                     Elements DeathLinks = doc.select("#maincounter-wrap > div > span");
+                    LastUpdLink = doc.select("body > div.container > div:nth-child(2) > div.col-md-8 > div > div:nth-child(5)");
 
                     sb.append(links.html());
                     deathSB.append(DeathLinks.html());
@@ -143,10 +162,28 @@ public class MainActivity extends AppCompatActivity {
                                 numberChange = true;
                                 RecoveredLabel.setText(allValues[2] + " (" +(100-Math.round(Double.parseDouble(deathPercentSB.toString())))+"%)");
                             }
+
+                            String LastUpdatedString = LastUpdLink.html();
+                            Integer GMTHour = Integer.parseInt(LastUpdatedString.split(" ")[5].split(":")[0]);
+                            Integer waterlooHour = (GMTHour-4);
+                            String timee="";
+                            if(waterlooHour>12){
+                                waterlooHour = waterlooHour-12;
+                                timee = waterlooHour.toString()+":"+LastUpdatedString.split(" ")[5].split(":")[1];
+                                timee = timee+" pm";
+                            }
+                            else {
+                                timee = timee+" am";
+                                timee = waterlooHour.toString()+":"+LastUpdatedString.split(" ")[5].split(":")[1];
+                            }
+                            LastUpdatedLabel.setText("Last Updated on "+timee+" EDT");
+
                             CheckBox cbNotification = findViewById(R.id.notificationCheckBox);
                             if(numberChange&&cbNotification.isChecked()){
-                                showNotification("Update Notice","Updated!");
+                                showNotification("Update Notice","Updated on "+timee);
                             }
+
+
                         }catch (Exception ex){
                             sb.append("Error: "+ex.getMessage()).append("\n");
                             ex.printStackTrace();
@@ -156,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 
     public void updateWebsite(View view) {
         view.startAnimation(buttonClick);
@@ -197,7 +235,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void autoUpdate(View view) {
         CheckBox autoUpdateCB = findViewById(R.id.AutoUpdateCheckbox);
+        CheckBox cbNotification = findViewById(R.id.notificationCheckBox);
         if (autoUpdateCB.isChecked()){
+            cbNotification.setEnabled(true);
             Thread thread = new Thread("Auto Update") {
                 public void run() {
                     while(true){
@@ -215,6 +255,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             thread.start();
+        }
+        else {
+            cbNotification.setEnabled(false);
+            cbNotification.setChecked(false);
         }
     }
 

@@ -23,6 +23,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class CanadaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -32,6 +35,7 @@ public class CanadaActivity extends AppCompatActivity {
         if(isInternetWorking())
             getWebsite();
     }
+    Elements newCasesTodayLink, lastUpdatedLink;
 
     private void getWebsite() {
         new Thread(new Runnable() {
@@ -39,45 +43,41 @@ public class CanadaActivity extends AppCompatActivity {
             final TextView deathCaseLabel = findViewById(R.id.deathCaseLabel);
             final TextView recoveredCaseLabel = findViewById(R.id.recoveredCaseLabel);
             final TextView activeCaseLabel = findViewById(R.id.activeCaseLabel);
-            final TextView mildCaseLabel = findViewById(R.id.mildCaseLabel);
-            final TextView seriousCaseLabel = findViewById(R.id.seriousCaseLabel);
             final TextView closedCaseLabel = findViewById(R.id.closedCaseLabel);
+            final TextView lastUpdatedLabel = findViewById(R.id.lastUpdatedLabel);
+            final TextView newCasesTotalLabel = findViewById(R.id.newCaseLabel);
             final StringBuilder totalCount = new StringBuilder();
             final StringBuilder deathCount = new StringBuilder();
             final StringBuilder recoveredCount = new StringBuilder();
             final StringBuilder activeCount = new StringBuilder();
-            final StringBuilder mildCount = new StringBuilder();
-            final StringBuilder seriousCount = new StringBuilder();
             final StringBuilder closedCount = new StringBuilder();
             final StringBuilder mildPercent = new StringBuilder();
             final StringBuilder seriousPercent = new StringBuilder();
             final StringBuilder deathPercent = new StringBuilder();
             final StringBuilder recoveredPercent = new StringBuilder();
+            final StringBuilder newCasesToday = new StringBuilder();
             @Override
             public void run() {
                 try {
-                    Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus/country/canada/").get();
+                    Document doc = Jsoup.connect("https://www.ctvnews.ca/health/coronavirus/tracking-every-case-of-covid-19-in-canada-1.4852102").get();
                     //sb.append(doc.title()).append("\n");
-                    Elements links = doc.select("#maincounter-wrap > div > span");
-                    Elements active_death_Link = doc.select("div[class=\"number-table-main\"]");
-                    Elements mildLink = doc.select("span[class=\"number-table\"]");
-                    Element percent = doc.select("strong").first();
-                    Element seriousPercentHtml = doc.select("body > div:nth-child(11) > div:nth-child(2) > div.col-md-8 > div > div.row > div:nth-child(1) > div > div.panel-body > div > div.panel_front > div:nth-child(3) > div:nth-child(2) > strong").first();
-                    Elements deathPercentHTML = doc.select("body > div:nth-child(11) > div:nth-child(2) > div.col-md-8 > div > div.row > div:nth-child(2) > div > div.panel-body > div > div.panel_front > div:nth-child(3) > div:nth-child(2) > strong");
+                    Elements links = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > table.covid-province-table.cases-table > tbody:nth-child(3) > tr > td:nth-child(1)");
+                    Elements deathLinks = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > table.covid-province-table.status-table > tbody:nth-child(3) > tr > td:nth-child(3)");
+                    Elements recLink = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > table.covid-province-table.status-table > tbody:nth-child(3) > tr > td:nth-child(2)");
+                    Elements activeLink = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > table.covid-province-table.status-table > tbody:nth-child(3) > tr > td:nth-child(1)");
+                    newCasesTodayLink = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > table.covid-province-table.cases-table > tbody:nth-child(3) > tr > td:nth-child(2)");
+                    lastUpdatedLink = doc.select("#top > div > div.content-wrapper > div.s-data > span:nth-child(2)");
 
                     totalCount.append(links.html().split("\n")[0]);
-                    deathCount.append(links.html().split("\n")[1]);
-                    recoveredCount.append(links.html().split("\n")[2]);
-                    activeCount.append(active_death_Link.html().split("\n")[0]);
-                    closedCount.append(active_death_Link.html().split("\n")[1]);
-                    mildCount.append(mildLink.html().split("\n")[0]);
-                    seriousCount.append(mildLink.html().split("\n")[1]);
-                    mildPercent.append(percent.text());
+                    deathCount.append(deathLinks.html());
+                    recoveredCount.append(recLink.html());
+                    activeCount.append(activeLink.html());
                     seriousPercent.append(100-Integer.parseInt(mildPercent.toString()));
+                    newCasesToday.append(newCasesTodayLink.html());
                     Double deathNumber = Double.parseDouble(deathCount.toString().replace(",",""));
-                    Double closedNumber = Double.parseDouble(closedCount.toString().replace(",",""));
-                    deathPercent.append(Math.round((deathNumber/closedNumber)*100));
-                    recoveredPercent.append(100-Math.round((deathNumber/closedNumber)*100));
+                    Double closedNumber = Double.parseDouble(deathCount.toString().replace(",",""))+Double.parseDouble(recoveredCount.toString().replace(",",""));
+                    /*deathPercent.append(Math.round((deathNumber/closedNumber)*100));
+                    recoveredPercent.append(100-Math.round((deathNumber/closedNumber)*100));*/
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -85,13 +85,17 @@ public class CanadaActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            coronavirusCaseLabel.setText(totalCount.toString());
+                            Double deathNumber = Double.parseDouble(deathCount.toString().replace(",",""));
+                            Double closedNumber = Double.parseDouble(deathCount.toString().replace(",",""))+Double.parseDouble(recoveredCount.toString().replace(",",""));
+                            deathPercent.append(Math.round((deathNumber/closedNumber)*100));
+                            recoveredPercent.append(100-Math.round((deathNumber/closedNumber)*100));
+                            coronavirusCaseLabel.setText(totalCount.toString().split("\n")[0]);
                             deathCaseLabel.setText(deathCount.toString()+" ("+deathPercent.toString()+"%)");
                             recoveredCaseLabel.setText(recoveredCount.toString()+" ("+recoveredPercent.toString()+"%)");
                             activeCaseLabel.setText(activeCount.toString());
-                            closedCaseLabel.setText(closedCount.toString());
-                            mildCaseLabel.setText(" "+mildCount.toString()+"\n ("+mildPercent.toString()+"%)");
-                            seriousCaseLabel.setText("  "+seriousCount.toString()+"\n ("+seriousPercent.toString()+"%)");
+                            closedCaseLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(closedNumber));
+                            newCasesTotalLabel.setText(newCasesTodayLink.html());
+                            lastUpdatedLabel.setText(lastUpdatedLink.html());
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -159,5 +163,9 @@ public class CanadaActivity extends AppCompatActivity {
         view.startAnimation(buttonClick);
         if(isInternetWorking())
             getWebsite();
+    }
+
+    public void launchProvinceDetail(View view) {
+        startActivity(new Intent(this,ProvinceDetail.class));
     }
 }

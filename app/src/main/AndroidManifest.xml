@@ -26,6 +26,7 @@ package="com.beginner.coronaviruscounter" android:installLocation="preferExterna
     <activity android:name=".ExeriseTimerActivity"></activity>
     <activity android:name=".AnyCountryActivity"></activity>
     <activity android:name=".ProtectionActivity"></activity>
+    <activity android:name=".ProvinceDetail"></activity>
     </application>
 
     </manifest>

@@ -42,7 +42,7 @@ public class AnyCountryActivity extends AppCompatActivity {
             final TextView activeCaseLabel = findViewById(R.id.activeCaseLabel);
             final TextView mildCaseLabel = findViewById(R.id.mildCaseLabel);
             final TextView seriousCaseLabel = findViewById(R.id.seriousCaseLabel);
-            final TextView closedCaseLabel = findViewById(R.id.closedCaseLabel);
+            final TextView closedCaseLabel = (TextView) findViewById(R.id.closedCaseLabel);
             final StringBuilder totalCount = new StringBuilder();
             final StringBuilder deathCount = new StringBuilder();
             final StringBuilder recoveredCount = new StringBuilder();
