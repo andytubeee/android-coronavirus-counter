@@ -173,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
                                 timee = timee+" pm";
                             }
                             else {
+
+                                //Bug: If GMTHour is 3, when substract 4 becomes -1am
+                                if (waterlooHour<0){
+                                    waterlooHour+=24;
+                                }
                                 timee = timee+" am";
                                 timee = waterlooHour.toString()+":"+LastUpdatedString.split(" ")[5].split(":")[1];
                             }
