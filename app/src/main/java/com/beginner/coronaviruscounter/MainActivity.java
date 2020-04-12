@@ -178,6 +178,13 @@ public class MainActivity extends AppCompatActivity {
                                 if (waterlooHour<0){
                                     waterlooHour+=24;
                                 }
+
+                                if(waterlooHour>12){
+                                    waterlooHour = waterlooHour-12;
+                                    timee = waterlooHour.toString()+":"+LastUpdatedString.split(" ")[5].split(":")[1];
+                                    timee = timee+" pm";
+                                }
+
                                 timee = timee+" am";
                                 timee = waterlooHour.toString()+":"+LastUpdatedString.split(" ")[5].split(":")[1];
                             }
