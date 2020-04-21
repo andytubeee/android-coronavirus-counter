@@ -66,7 +66,7 @@ public class CanadaActivity extends AppCompatActivity {
                     Elements recLink = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > table.covid-province-table.status-table > tbody:nth-child(3) > tr > td:nth-child(2)");
                     Elements activeLink = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > table.covid-province-table.status-table > tbody:nth-child(3) > tr > td:nth-child(1)");
                     newCasesTodayLink = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > table.covid-province-table.cases-table > tbody:nth-child(3) > tr > td:nth-child(2)");
-                    lastUpdatedLink = doc.select("#top > div > div.content-wrapper > div.s-data > span:nth-child(2)");
+                    lastUpdatedLink = doc.select("#top > div > div.content-wrapper > div.s-data > span:nth-child(7)");
 
                     totalCount.append(links.html().split("\n")[0]);
                     deathCount.append(deathLinks.html());

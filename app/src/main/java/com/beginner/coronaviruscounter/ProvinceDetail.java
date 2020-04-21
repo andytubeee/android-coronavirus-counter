@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -32,10 +33,7 @@ public class ProvinceDetail extends AppCompatActivity {
 
     //Variables
 
-    String totalCaseString;
-    Document doc;
-
-    private void getWebsite(final String prov) {
+   /* private void getWebsite(final String prov) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -43,8 +41,8 @@ public class ProvinceDetail extends AppCompatActivity {
                     doc = Jsoup.connect("https://www.ctvnews.ca/health/coronavirus/tracking-every-case-of-covid-19-in-canada-1.4852102").get();
                     switch (prov){
                         case "British Columbia":
-                            Elements totalCaseL = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > div:nth-child(23) > div.covid-table-charts > div.tb1 > table > tbody:nth-child(3) > tr > td:nth-child(1)");
-                            totalCaseString = totalCaseL.html().trim();
+                            totalCaseL = doc.select("#responsive_main > section > div > div > div:nth-child(2) > div.articleBody.election-col-11.election-col-s-12.election-col-m-12.election-col-l-10.election-col-xl-11.offset-right-col-l-1.offset-left-col-l-1.offset-left-col-xl-1.offset-left-col-1 > div:nth-child(21) > div.covid-table-charts > div.tb1 > table > tbody:nth-child(3) > tr > td:nth-child(1)");
+                            totalCaseString = totalCaseL.html();
                             break;
                     }
 
@@ -57,7 +55,7 @@ public class ProvinceDetail extends AppCompatActivity {
                         try {
                             switch (prov){
                                 case "British Columbia":
-
+                                    //makeToast(totalCaseL.html());
                                     break;
                             }
                         }catch (Exception ex){
@@ -68,11 +66,37 @@ public class ProvinceDetail extends AppCompatActivity {
             }
         }).start();
     }
+*/
 
-
-
+    String totalCaseString;
+    Elements totalCaseL;
+    Document doc;
     public void displayBC(View view) {
-        getWebsite("British Columbia");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    doc = Jsoup.connect("https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html#a1").get();
+                    totalCaseL = doc.select("#g59 > g > text");
+                    totalCaseString = totalCaseL.html();
+                }catch (Exception ex){
+                    makeToast("IDK WTF HAPPEND!");
+                    ex.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                           makeToast(totalCaseL.toString());
+                        }catch (Exception ex){
+                            makeToast("Something happened and I do not care");
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
 
