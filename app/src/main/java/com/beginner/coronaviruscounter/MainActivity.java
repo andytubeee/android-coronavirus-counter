@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     sb.append(links.html());
                     deathSB.append(DeathLinks.html());
                     closedNumberString.append(activeHTML.html().split("\n")[1]);
-                    Double deathNumber = Double.parseDouble(deathSB.toString().split("\n")[1].replaceAll("(\\d+),.*", "$1"));
-                    Double closedNumber = Double.parseDouble(closedNumberString.toString().replaceAll("(\\d+),.*", "$1"));
+                    Double deathNumber = Double.parseDouble(deathSB.toString().split("\n")[1].replace(",",""));
+                    Double closedNumber = Double.parseDouble(closedNumberString.toString().replace(",",""));
                     deathPercent = (deathNumber/closedNumber)*100;
                     deathPercentSB.append(deathPercent.toString());
                 }catch (Exception e){
